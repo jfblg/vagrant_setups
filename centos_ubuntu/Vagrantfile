@@ -1,0 +1,27 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "u" do |u|
+    u.vm.box = "ubuntu/bionic64"
+    u.vm.hostname = 'u'
+
+    u.vm.network :private_network, ip: "192.168.100.11"
+
+    u.vm.provider :virtualbox do |v|
+      # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--name", "u"]
+    end
+  end
+
+  config.vm.define "c" do |c|
+    c.vm.box = "centos/8"
+    c.vm.hostname = 'c'
+
+    c.vm.network :private_network, ip: "192.168.100.12"
+
+    c.vm.provider :virtualbox do |v|
+      # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--name", "c"]
+    end
+  end
+end
